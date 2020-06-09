@@ -35,5 +35,43 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(password);
 		userMapper.updateByPrimaryKeySelective(user);
 	}
+	@Override
+	public List<User> getUsers(int currentPage, int pageSize, String searchName) {
+		List<User> list = userMapper.selectUsers((currentPage-1) * pageSize, pageSize, searchName);
+		return list;
+	}
+	@Override
+	public int getUserCount(String searchName) {
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNameLike(searchName);
+		int count = userMapper.countByExample(example);
+		return count;
+	}
+	@Override
+	public User getUserById(int id) {
+		User user = userMapper.selectByPrimaryKey(id);
+		return user;
+	}
+	@Override
+	public void delete(int id) {
+		userMapper.deleteByPrimaryKey(id);
+		
+	}
+	@Override
+	public void addUser(User user) {
+		userMapper.insertSelective(user);
+		
+	}
+	@Override
+	public User getById(int id) {
+		User user = userMapper.selectByPrimaryKey(id);
+		return user;
+	}
+	@Override
+	public void update(User user) {
+		userMapper.updateByPrimaryKeySelective(user);
+		
+	}
 
 }

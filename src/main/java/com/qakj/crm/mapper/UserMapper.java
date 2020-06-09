@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
+	List selectUsers(@Param("start") int start,@Param("len") int len,@Param("searchName") String searchName);
+	
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
